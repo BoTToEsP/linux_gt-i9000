@@ -30,7 +30,7 @@
 #endif
 
 #define SUBJECT "wm8994_voodoo.c"
-#define VOODOO_SOUND_VERSION 6
+#define VOODOO_SOUND_VERSION 7
 
 #ifdef MODULE
 #include "tegrak_voodoo_sound.h"
@@ -363,7 +363,7 @@ void update_speaker_tuning(bool with_mute)
 {
 	DECLARE_WM8994(codec);
 
-	if (!(is_path(SPEAKER) || (wm8994->codecstate & CALL_ACTIVE)))
+	if (!(is_path(SPEAKER) || (wm8994->codec_state & CALL_ACTIVE)))
 		return;
 
 	printk("We are on speaker!\n");
@@ -966,7 +966,7 @@ void voodoo_hook_playback_speaker()
 unsigned int voodoo_hook_wm8994_write(struct snd_soc_codec *codec_,
 				      unsigned int reg, unsigned int value)
 {
-	DECLARE_WM8994(codec);
+	DECLARE_WM8994(codec_);
 
 	// global kill switch
 	if (!enable)
